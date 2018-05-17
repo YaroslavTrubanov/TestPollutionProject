@@ -1,0 +1,20 @@
+<div>
+  <ngui-map zoom="12"
+            class="map"
+            center="54.70916675, 20.5206741"
+            (mapReady$)="onMapReady($event)"
+            (mapClick)="onMapClick($event)"
+            (idle)="onIdle($event)"
+            mapTypeId="satellite"
+            draggable="true">
+    <marker *ngFor="let pos of positions"
+            [position]="pos"
+            (initialized$)="onMarkerInit($event)"></marker>
+    <!-- <info-window id="iw">
+      <div *ngIf="true">
+        lat: {{ marker.lat }}, lng: {{ marker.lng }}
+      </div>
+      <button (click)="hideMarkerInfo()">Hide Info</button>
+    </info-window> -->
+  </ngui-map>
+</div>
