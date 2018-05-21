@@ -8,16 +8,16 @@ import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
 import { MapComponent } from './components/map/map.component';
-import { NguiMapModule } from '@ngui/map';
+import { AgmCoreModule } from '@agm/core';
+
+import { AgmOverlays } from "agm-overlays";
 import { MapService } from './services/map/map.service';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
         FetchDataComponent,
         HomeComponent,
         MapComponent
@@ -32,12 +32,14 @@ import { MapService } from './services/map/map.service';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
-            { path: 'map', component: MapComponent},
+            { path: 'map', component: MapComponent },
             { path: '**', redirectTo: 'home' }
         ]),
-        NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyD8NfCza0ZJpP6v6rwEbp_Sh7FrsHn6Mqo'})
+        AgmOverlays,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyD8NfCza0ZJpP6v6rwEbp_Sh7FrsHn6Mqo'
+        })
     ]
 })
 export class AppModuleShared {

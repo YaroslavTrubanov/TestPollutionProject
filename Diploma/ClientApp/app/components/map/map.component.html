@@ -1,20 +1,97 @@
-<div>
-  <ngui-map zoom="12"
-            class="map"
-            center="54.70916675, 20.5206741"
-            (mapReady$)="onMapReady($event)"
-            (mapClick)="onMapClick($event)"
-            (idle)="onIdle($event)"
-            mapTypeId="satellite"
-            draggable="true">
-    <marker *ngFor="let pos of positions"
-            [position]="pos"
-            (initialized$)="onMarkerInit($event)"></marker>
-    <!-- <info-window id="iw">
-      <div *ngIf="true">
-        lat: {{ marker.lat }}, lng: {{ marker.lng }}
+<h1>{{ title }}</h1>
+
+<agm-map [latitude]="centerLat"
+         [longitude]="centerLng">
+  <agm-overlay *ngFor="let item of positions"
+               [latitude]="item.lat"
+               [longitude]="item.lng">
+    <!-- blue html square -->
+    <div class="custom-marker">
+      <svg version="1.1"
+           id="Capa_1"
+           xmlns="http://www.w3.org/2000/svg"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           x="0px"
+           y="0px"
+           width="337.5px"
+           height="337.499px"
+           viewBox="0 0 337.5 337.499"
+           style="enable-background:new 0 0 337.5 337.499;"
+           xml:space="preserve">
+        <g>
+          <g>
+            <rect style="
+              width: 100%;
+              height: 53%;
+          "
+                  [style.fill]=item.color>
+            </rect>
+            <path d="M0,182.925h10.125v6.75h133.65v125.55h-18.9v20.25h87.75v-20.25h-18.899v-125.55h133.649v-6.75H337.5V2.024H0V182.925z
+          M292.95,166.725v-4.894c5.273-2.136,9.002-7.288,9.002-13.331c0-7.955-6.449-14.402-14.401-14.402
+         c-7.953,0-14.402,6.447-14.402,14.402c0,6.043,3.729,11.195,9.002,13.331v4.894h-88.425H174.15v-4.894
+         c5.273-2.136,9.002-7.288,9.002-13.331c0-0.077-0.021-0.146-0.021-0.227c-0.121-7.847-6.507-14.175-14.381-14.175
+         c-7.873,0-14.256,6.328-14.375,14.175c0,0.077-0.021,0.145-0.021,0.227c0,6.043,3.726,11.195,9.001,13.331v4.894H143.78H51.3
+         v-5.12c5.276-2.136,9.002-7.288,9.002-13.332c0-7.955-6.447-14.402-14.402-14.402s-14.402,6.447-14.402,14.402
+         c0,6.043,3.726,11.196,9.002,13.332v5.12H10.8v-153.9h315.9v153.9H292.95z" />
+            <text _ngcontent-c22=""
+                  font-size="155"
+                  x="17%"
+                  y="42%"
+                  style="
+         font-weight: bold;
+     "
+                  [style.fill]=item.textColor>{{item.aqi}}</text>
+          </g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+      </svg>
+    </div>
+    <agm-info-window>
+      <div class="header" [style.color]=item.color>{{item.aqi}} AQI</div>
+      <div class="desc">{{item.description}}</div>
+      <div class="main">
+        <div class="column">
+          <div class="custom-row" *ngFor="let pollution of item.pollutions | slice:0:2">
+            <span>{{pollution.name}}</span>
+            <span class="aqi-value" [style.background-color]=pollution.aqiBackgroundColor>{{pollution.aqi}} AQI</span>
+          </div>
+        </div>
+        <div class="column">
+          <div class="custom-row" *ngFor="let pollution of item.pollutions | slice:2:4">
+            <span>{{pollution.name}}</span>
+            <span [style.background-color]=pollution.aqiBackgroundColor>{{pollution.aqi}} AQI</span>
+          </div>
+        </div>
       </div>
-      <button (click)="hideMarkerInfo()">Hide Info</button>
-    </info-window> -->
-  </ngui-map>
-</div>
+    </agm-info-window>
+  </agm-overlay>
+</agm-map>
